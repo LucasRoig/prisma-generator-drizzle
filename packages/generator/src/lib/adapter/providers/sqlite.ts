@@ -156,6 +156,13 @@ export const sqliteAdapter = createAdapter({
 				func: `text('${getDbName(field)}')`,
 			})
 		},
+		Json(field) {
+			return createField({
+				field,
+				imports: [namedImport(['text'], coreModule)],
+				func: `text('${getDbName(field)}', { mode: 'json' })`,
+			})
+		},
 	},
 	extraModules: [customDecimalModule, customBigIntModule],
 })

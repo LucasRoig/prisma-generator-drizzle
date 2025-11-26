@@ -1,11 +1,11 @@
 {
-	"name": "prisma-generator-drizzle",
+	"name": "prisma-generator-drizzle-lro",
 	"description": "A Prisma generator for generating Drizzle schema with ease",
 	"version": "0.7.6",
 	"main": "dist/generator.js",
 	"license": "MIT",
 	"bin": {
-		"prisma-generator-drizzle": "dist/bin.js"
+		"prisma-generator-drizzle-lro": "dist/bin.js"
 	},
 	"engines": {
 		"node": ">=14.0"
