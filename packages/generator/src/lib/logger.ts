@@ -1,4 +1,4 @@
-import { logger as baseLogger } from '@prisma/sdk'
+import { logger as baseLogger } from '@prisma/internals'
 import { GENERATOR_NAME } from 'src/constants'
 import { getGenerator } from '~/shared/generator-context'
 
