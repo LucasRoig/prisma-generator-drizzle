@@ -1,1 +1,1 @@
-export const GENERATOR_NAME = 'prisma-generator-drizzle'
+export const GENERATOR_NAME = 'prisma-generator-drizzle-lro'
