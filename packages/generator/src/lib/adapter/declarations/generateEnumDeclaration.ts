@@ -1,4 +1,5 @@
 import type { DMMF } from '@prisma/generator-helper'
+import { upperFirst } from 'lodash'
 import { getDbName } from '~/lib/prisma-helpers/getDbName'
 import { getEnumVarName } from '../../prisma-helpers/enums'
 import type { Adapter } from '../types'
@@ -14,8 +15,17 @@ export function generateEnumDeclaration(
 		prismaEnum.values.map(getDbName)
 	)
 
+	let code = ''
+	if (enumFuncCall.type) {
+		code += `export type ${upperFirst(varName)} = ${enumFuncCall.type};`
+	}
+
+	if (enumFuncCall.func) {
+		code += `export const ${varName} = ${enumFuncCall.func};`
+	}
+
 	return {
 		imports: enumFuncCall.imports,
-		code: `export const ${varName} = ${enumFuncCall.func};`,
+		code,
 	}
 }

@@ -1,3 +1,4 @@
+import { kebabCase, upperFirst } from 'lodash'
 import { getDbName } from '~/lib/prisma-helpers/getDbName'
 import { namedImport } from '~/lib/syntaxes/imports'
 import { createModule } from '~/lib/syntaxes/module'
@@ -57,8 +58,11 @@ const customBigIntModule = createModule({
 export const sqliteAdapter = createAdapter({
 	name: 'sqlite',
 	getDeclarationFunc: {
-		enum(_, __) {
-			throw new Error('Prisma does not support enums')
+		enum(_, values) {
+			return {
+				imports: [],
+				type: values.map((v) => `'${v}'`).join(' | '),
+			}
 		},
 		table(name, fields) {
 			return {
@@ -70,6 +74,14 @@ export const sqliteAdapter = createAdapter({
 		},
 	},
 	fields: {
+		enum(field) {
+			const tsType = `${upperFirst(field.type)}Enum`
+			return createField({
+				field,
+				imports: [namedImport([tsType], `./${kebabCase(field.type)}-enum`)],
+				func: `text('${getDbName(field)}').$type<${tsType}>()`,
+			})
+		},
 		// Prisma: https://arc.net/l/quote/omrfeqos
 		// Drizzle: https://orm.drizzle.team/docs/column-types/sqlite#bigint
 		BigInt(field) {

@@ -3,7 +3,7 @@ import type { ImportValue } from '../syntaxes/imports'
 import type { Module } from '../syntaxes/module'
 import type { FieldFunc } from './fields/createField'
 
-type DeclarationFunc = { imports: ImportValue[]; func: string }
+type DeclarationFunc = { imports: ImportValue[]; func?: string; type?: string }
 
 export function createAdapter<TName extends string>(impl: {
 	name: TName
